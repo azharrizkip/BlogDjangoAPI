@@ -3,3 +3,4 @@ djangorestframework
 django-filter
 djangorestframework-jwt
 djangorestframework-recursive
+django-rest-swagger
