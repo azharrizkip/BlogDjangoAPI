@@ -18,20 +18,11 @@ class PostsSerializer(serializers.ModelSerializer):
 			'content',
 
 			'comments',
+			'created_at',
+			'updated_at',
 			'created_by',
+			'updated_by',
 		)
-
-	def create(self, validated_data):
-	    created_by_id = validated_data.get("created_by_id")
-	    validated_data.pop("created_by_id", None)
-
-	    post = Posts(**validated_data)
-
-	    user = User.objects.filter(id=created_by_id).first()
-	    post.created_by = user
-	    post.save()
-
-	    return post
 
 class PostsSerializerSimple(serializers.ModelSerializer):
 	class Meta:

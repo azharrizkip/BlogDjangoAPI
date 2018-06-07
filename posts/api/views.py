@@ -21,5 +21,12 @@ class PostsViewSet(viewsets.ModelViewSet):
 	def create(self, request, *args, **kwargs):
 	    serializer = self.get_serializer(data=request.data)
 	    serializer.is_valid(raise_exception=True)
-	    serializer.save(created_by=request.user)
+	    serializer.save(created_by=request.user, updated_by=request.user)
+	    return Response(serializer.data, status=status.HTTP_201_CREATED,)
+
+	def update(self, request, pk=None):
+	    instance = self.queryset.get(pk=pk)
+	    serializer = PostsSerializer(instance, data=request.data, partial=True)
+	    serializer.is_valid(raise_exception=True)
+	    serializer.save(updated_by=request.user)
 	    return Response(serializer.data, status=status.HTTP_201_CREATED,)

@@ -18,21 +18,11 @@ class CommentsSerializer(serializers.ModelSerializer):
 
 			'post_id',
 			'post',
+			'created_at',
+			'updated_at',
 			'created_by',
+			'updated_by',
 		)
-
-	def create(self, validated_data):
-	    comment = Comments(**validated_data)
-
-	    # relate with post
-	    post_id = validated_data.get("post_id")
-	    validated_data.pop("post_id", None)
-	    post = Posts.objects.filter(id=post_id).first()
-	    comment.post = post
-
-	    comment.save()
-
-	    return comment
 
 class CommentsSerializerSimple(serializers.ModelSerializer):
 	class Meta:
